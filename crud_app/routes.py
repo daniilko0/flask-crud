@@ -7,7 +7,9 @@ from crud_app.models import Book
 app = Flask(__name__)
 app.config.from_object(Config)
 
-books = [Book(isbn="123", name="123", author="qwerty", pages=123, year=2021, added_on="2021-03-21 12:00:00", deleted=True)]
+books = [
+    Book(isbn="123", name="123", author="qwerty", pages=123, year=2021, added_on="2021-03-21 12:00:00", deleted=False),
+]
 
 
 @app.route("/")
@@ -54,15 +56,11 @@ def update(id):
 
 @app.route("/delete/<int:id>")
 def delete(id):
-    try:
-        for index, book in enumerate(books):
-            if book.isbn == id:
-                books.pop(index)
+    for index, book in enumerate(books):
+        if index == id:
+            book.deleted = True
 
-        return redirect(url_for("homepage"))
-
-    except IndexError:
-        return render_template('404.html'), 404
+    return redirect(url_for("homepage"))
 
 
 if __name__ == '__main__':
