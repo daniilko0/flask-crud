@@ -30,27 +30,19 @@ def create():
     return render_template("crud/create.html")
 
 
-@app.route("/update/<int:id>")
-def update_route(id):
+@app.route("/update/<int:id>", methods=["GET", "POST"])
+def update(id):
     try:
         entry = books[id]
     except IndexError:
         return render_template('404.html'), 404
 
-    return render_template("crud/update.html", entry=entry, entry_id=id)
-
-
-@app.route("/save/<int:id>", methods=["POST"])
-def update(id):
-    try:
-        deleted_status = books[id].deleted
-        books.pop(id)
-    except IndexError:
-        return render_template('404.html'), 404
+    if request.method == "GET":
+        return render_template("crud/update.html", entry=entry, entry_id=id)
 
     form = dict(request.form)
-    form.update({"deleted": deleted_status})
-    books.append(Book(**form))
+    for key, _ in entry:
+        setattr(books[id], key, form.get(key))
 
     return redirect(url_for("homepage"))
 
