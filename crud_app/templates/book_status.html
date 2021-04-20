@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in book.status.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
