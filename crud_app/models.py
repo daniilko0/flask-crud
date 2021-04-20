@@ -12,6 +12,7 @@ class Book(BaseModel):
     year: int
     added_on: datetime.datetime
     deleted: bool
+    status: dict
 
     def __repr__(self):
-        return '<Book: {}>'.format(self.name)
+        return "<Book: {}>".format(self.name)
