@@ -10,6 +10,7 @@
                     <th>Число страниц</th>
                     <th>Год</th>
                     <th>Добавлено</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,14 @@
                             <td>{{ book.pages }}</td>
                             <td>{{ book.year }}</td>
                             <td>{{ book.added_on }}</td>
+                            <td>
+                                <a href="{{ url_for("delete", id=loop.index - 1) }}">
+                                    <button type="button" class="btn btn-danger">delete</button>
+                                </a>
+                                <a href="{{ url_for("update", id=loop.index - 1) }}">
+                                    <button type="button" class="btn btn-primary">edit</button>
+                                </a>
+                            </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
