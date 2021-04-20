@@ -12,12 +12,14 @@
             </tr>
             {% for book in books %}
                 {% if not book.deleted %}
-                    <td>{{ book.isbn }}</td>
-                    <td>{{ book.name }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.pages }}</td>
-                    <td>{{ book.year }}</td>
-                    <td>{{ book.added_on }}</td>
+                    <tr>
+                        <td>{{ book.isbn }}</td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.pages }}</td>
+                        <td>{{ book.year }}</td>
+                        <td>{{ book.added_on }}</td>
+                    </tr>
                 {% endif %}
             {% endfor %}
         </table>
