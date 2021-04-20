@@ -1,12 +1,31 @@
 {% extends "base.html" %}
 {% block body %}
-    <form action="{{ url_for('update', id=entry_id)}}" method="post">
-        <p><label for="isbn">ISBN</label> <input type="text" id="isbn" name="isbn" value="{{ entry.isbn }}"></p>
-        <p><label for="name">Название</label> <input type="text" id="name" name="name" value="{{ entry.name }}"></p>
-        <p><label for="author">Автор</label> <input type="text" id="author" name="author" value="{{ entry.author }}"></p>
-        <p><label for="pages">Число страниц</label> <input type="text" id="pages" name="pages" value="{{ entry.pages }}"></p>
-        <p><label for="year">Год</label> <input type="text" id="year" name="year" value="{{ entry.year }}"></p>
-        <p><label for="added_on">Добавлено</label> <input type="text" id="added_on" name="added_on" value="{{ entry.added_on }}"></p>
-        <p><input type="submit"></p>
+    <h1>Редактировать книгу №{{ entry_id }}</h1>
+    <form action="{{ url_for('update', id=entry_id) }}" method="post">
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" id="isbn" name="isbn" class="form-control" value="{{ entry.isbn }}">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Название</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ entry.name }}">
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Автор</label>
+            <input type="text" id="author" name="author" class="form-control" value="{{ entry.author }}">
+        </div>
+        <div class="mb-3">
+            <label for="pages" class="form-label">Число страниц</label>
+            <input type="text" id="pages" name="pages" class="form-control" value="{{ entry.pages }}">
+        </div>
+        <div class="mb-3">
+            <label for="year" class="form-label">Год</label>
+            <input type="text" id="year" name="year" class="form-control" value="{{ entry.year }}">
+        </div>
+        <div class="mb-3">
+            <label for="added_on" class="form-label">Добавлено</label>
+            <input type="text" id="added_on" name="added_on" class="form-control" value="{{ entry.added_on }}">
+        </div>
+        <div class="mb-3"><input type="submit" class="btn btn-primary"></div>
     </form>
 {% endblock %}

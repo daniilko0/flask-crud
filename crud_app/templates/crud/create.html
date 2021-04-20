@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 {% block body %}
     <form action="{{ url_for('create') }}" method="post">
-        <p><label for="isbn">ISBN</label> <input type="text" id="isbn" name="isbn"></p>
-        <p><label for="name">Название</label> <input type="text" id="name" name="name"></p>
-        <p><label for="author">Автор</label> <input type="text" id="author" name="author"></p>
-        <p><label for="pages">Число страниц</label> <input type="text" id="pages" name="pages"></p>
-        <p><label for="year">Год</label> <input type="text" id="year" name="year"></p>
-        <p><label for="added_on">Добавлено</label> <input type="text" id="added_on" name="added_on"></p>
-        <p><input type="submit"></p>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" id="isbn" name="isbn" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Название</label>
+            <input type="text" id="name" name="name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Автор</label>
+            <input type="text" id="author" name="author" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="pages" class="form-label">Число страниц</label>
+            <input type="text" id="pages" name="pages" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="year" class="form-label">Год</label>
+            <input type="text" id="year" name="year" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="added_on" class="form-label">Добавлено</label>
+            <input type="text" id="added_on" name="added_on" class="form-control">
+        </div>
+        <div class="mb-3"><input type="submit" class="btn btn-primary"></div>
     </form>
 {% endblock %}

@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 {% block body %}
     {% if has_not_deleted %}
-        <table>
-            <tr>
-                <th>ISBN</th>
-                <th>Название</th>
-                <th>Автор</th>
-                <th>Число страниц</th>
-                <th>Год</th>
-                <th>Добавлено</th>
-            </tr>
-            {% for book in books %}
-                {% if not book.deleted %}
-                    <tr>
-                        <td>{{ book.isbn }}</td>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.author }}</td>
-                        <td>{{ book.pages }}</td>
-                        <td>{{ book.year }}</td>
-                        <td>{{ book.added_on }}</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Название</th>
+                    <th>Автор</th>
+                    <th>Число страниц</th>
+                    <th>Год</th>
+                    <th>Добавлено</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    {% if not book.deleted %}
+                        <tr>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.name }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.pages }}</td>
+                            <td>{{ book.year }}</td>
+                            <td>{{ book.added_on }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <h1>Книг нет</h1>
