@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 {% block body %}
-<form action="/update" method="post">
-    {% for _, v in entry %}
-        <div class="form-group">
-            <label>
-                <input class="form-control" value="{{v}}" required>
-            </label>
-        </div>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">
-        Update
-    </button>
-</form>
+    <form action="{{ url_for('update', id=entry_id)}}" method="post">
+        <p><label for="isbn">ISBN</label> <input type="text" id="isbn" name="isbn" value="{{ entry.isbn }}"></p>
+        <p><label for="name">Название</label> <input type="text" id="name" name="name" value="{{ entry.name }}"></p>
+        <p><label for="author">Автор</label> <input type="text" id="author" name="author" value="{{ entry.author }}"></p>
+        <p><label for="pages">Число страниц</label> <input type="text" id="pages" name="pages" value="{{ entry.pages }}"></p>
+        <p><label for="year">Год</label> <input type="text" id="year" name="year" value="{{ entry.year }}"></p>
+        <p><label for="added_on">Добавлено</label> <input type="text" id="added_on" name="added_on" value="{{ entry.added_on }}"></p>
+        <p><input type="submit"></p>
+    </form>
 {% endblock %}
