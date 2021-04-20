@@ -30,6 +30,9 @@
                                 <a href="{{ url_for("update", id=loop.index - 1) }}">
                                     <button type="button" class="btn btn-primary">edit</button>
                                 </a>
+                                <a href="{{ url_for("get_book_status", id=loop.index - 1) }}">
+                                    <button type="button" class="btn btn-info">status</button>
+                                </a>
                             </td>
                         </tr>
                     {% endif %}
