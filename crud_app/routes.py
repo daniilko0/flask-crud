@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask
 from flask import request, url_for, redirect, render_template
 
@@ -18,19 +20,14 @@ def homepage():
     return render_template("home.html", books=books, has_not_deleted=has_not_deleted)
 
 
-@app.route("/create")
-def create_route():
-    return render_template("crud/create.html")
-
-
-@app.route("/create", methods=["POST"])
+@app.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
         form = dict(request.form)
-
+        form.update({"added_on": datetime.strptime(form.get("added_on"), "%d-%m-%Y %H:%M"), "deleted": False})
         books.append(Book(**form))
-
-    return redirect(url_for("homepage"))
+        return redirect(url_for("homepage"))
+    return render_template("crud/create.html")
 
 
 @app.route("/update/<int:id>")
