@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from flask import Flask
-from flask import request, url_for, redirect, render_template
+from flask import json, request, url_for, redirect, render_template
+from werkzeug.exceptions import HTTPException
 
 from crud_app.config import Config
 from crud_app.models import Book
@@ -15,6 +16,7 @@ books = [
 
 
 @app.route("/")
+@app.route("/books")
 def homepage():
     has_not_deleted = any(book for book in books if not book.deleted)
     return render_template("home.html", books=books, has_not_deleted=has_not_deleted)
@@ -54,6 +56,20 @@ def delete(id):
             book.deleted = True
 
     return redirect(url_for("homepage"))
+
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        "type": e.code,
+        "message": e.name,
+        "data": {
+            "description": e.description,
+        },
+    })
+    response.content_type = "application/json"
+    return response
 
 
 if __name__ == '__main__':
