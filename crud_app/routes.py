@@ -37,18 +37,22 @@ def update_route(id):
     except IndexError:
         return render_template('404.html'), 404
 
-    return render_template("crud/update.html", entry=entry)
+    return render_template("crud/update.html", entry=entry, entry_id=id)
 
 
 @app.route("/save/<int:id>", methods=["POST"])
 def update(id):
     try:
+        deleted_status = books[id].deleted
         books.pop(id)
     except IndexError:
         return render_template('404.html'), 404
 
-    form = request.form
+    form = dict(request.form)
+    form.update({"deleted": deleted_status})
     books.append(Book(**form))
+
+    return redirect(url_for("homepage"))
 
 
 @app.route("/delete/<int:id>")
