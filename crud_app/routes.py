@@ -12,14 +12,46 @@ app.config.from_object(Config)
 
 books = [
     Book(isbn="123", name="123", author="qwerty", pages=123, year=2021, added_on="2021-03-21 12:00:00", deleted=False),
+    Book(isbn="123", name="123", author="uiop", pages=256, year=2021, added_on="2021-03-21 12:00:00", deleted=False),
+    Book(isbn="123", name="123", author="ghjk", pages=567, year=2021, added_on="2021-03-21 12:00:00", deleted=False),
+    Book(isbn="123", name="123", author="xcvb", pages=3, year=2021, added_on="2021-03-21 12:00:00", deleted=False),
 ]
 
 
 @app.route("/")
 @app.route("/books")
 def homepage():
-    has_not_deleted = any(book for book in books if not book.deleted)
-    return render_template("home.html", books=books, has_not_deleted=has_not_deleted)
+    args = dict(request.args)
+    data = books
+
+    if "filter" in args:
+        query = args.get("filter")
+        data = [book for book in books if query in book.isbn or query in book.name or query in book.author]
+
+    if "sort" in args:
+        field = args.get("sort")
+
+        if field[0] == "-":
+            reverse = True
+            field = field[1:]
+        else:
+            reverse = False
+
+        data = sorted(data, key=lambda book: dict(book).get(field), reverse=reverse)
+
+    if "limit" in args:
+        value = int(args.get("limit"))
+
+        data = data[:value]
+
+    if "take" in args and "page" in args:
+        page_size = int(args.get("take"))
+        page_num = int(args.get("page"))
+
+        data = [data[i:i + page_size] for i in range(0, len(data), page_size)][page_num]
+
+    has_not_deleted = any(book for book in data if not book.deleted)
+    return render_template("home.html", books=data, has_not_deleted=has_not_deleted)
 
 
 @app.route("/create", methods=["GET", "POST"])
