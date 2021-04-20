@@ -54,6 +54,11 @@ def homepage():
     return render_template("home.html", books=data, has_not_deleted=has_not_deleted)
 
 
+@app.route("/books/<int:id>")
+def get_book(id):
+    return render_template("book.html", book=books[id])
+
+
 @app.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
